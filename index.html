@@ -1,105 +1,137 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>微信支付</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .pay-container {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-        .pay-button {
-            background: #07c160;
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .pay-button:hover {
-            background: #06a552;
-        }
-        .pay-button:active {
-            background: #059648;
-        }
-        .icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            background: #07c160;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-        }
-        .title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        .error {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .pay-container {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+      }
+
+      .pay-button {
+        background: #07c160;
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+      }
+
+      .pay-button:hover {
+        background: #06a552;
+      }
+
+      .pay-button:active {
+        background: #059648;
+      }
+
+      .icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 20px;
+        background: #07c160;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+      }
+
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .error {
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: 10px;
+        display: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+
+  <body>
     <div class="pay-container">
-        <div class="icon">💳</div>
-        <div class="title">微信支付</div>
-        <div class="subtitle">点击下方按钮进行支付</div>
-        <button class="pay-button" onclick="openWeChatPay()">立即支付</button>
+      <div class="icon">💳</div>
+      <div class="title">微信支付</div>
+      <div class="subtitle">点击下方按钮进行支付</div>
+      <button class="pay-button" onclick="openWeChatPay()">微信支付</button>
+      <button class="pay-button" onclick="openWeChatPayH5()">h5微信支付</button>
+
+      <form
+        name="punchout_form"
+        method="post"
+        action="https://openapi-sandbox.dl.alipaydev.com/gateway.do?charset=UTF8&method=alipay.trade.wap.pay&sign=EVSga%2FaQYNRVqA3mBXaiq%2FO%2BiU%2BLi99BsXsq0xiwVU58pSAFjxdaOyaHkrixzaDEfT7sD0LV8wsPt%2FEYGdZKZbbuFuXvhnD46gSn7CEPJcXeCDCiY5CEm72UEFAmp277kpl8wofUEBRLbKEr5wkO7q7IKu%2FA853Fg6%2BgBo7IY9h7lcHWB7RJjFp6SjXsk6J%2FzNZBKgFlBGpWjfHDEKt%2BXLZuGR%2FDnOqUFGMypgpwC0YUQw9pr3qoH5G8KntrLjFpn5x6LNT1v7y%2BgFDwZWpwt2%2FQTOWb1oYaKVZ8qzqtbGvlfCGlomJ0Lj9XnuuJEIWZjwLBojwUaU2zPKSn8jy3Qg%3D%3D&app_id=9021000150651870&sign_type=RSA2&timestamp=2025-07-16+15%3A11%3A19&alipay_sdk=alipay-sdk-java-4.35.171.ALL&format=json"
+      >
+        <input
+          type="hidden"
+          name="biz_content"
+          value='{"out_trade_no":"70501111111S001111119","total_amount":"9.00","subject":"大乐透","product_code":"QUICK_WAP_WAY","seller_id":"2088102147948060"}'
+        />
+        <button class="pay-button" type="submit">支付宝支付</button>
+      </form>
     </div>
 
-<script>
-function openWeChatPay() {
-    const payUrl = "weixin://wap/pay?prepayid=wx161037284548140abc0c89143b50b20000&package=Sign%3DWXPay&noncestr=1752633449510×tamp=1752633449&sign=gN84mxMGXaSlN/NTHE+QZh/ph7wB9nEgBBl2HaDWoEoeYgPXMSWyU8TxP965GgN8iJ6VQahCsuD07WXUaNWW1m7lY3Ulaunv7/DqSrgC2ub/JjDEKNHuDYzb78fMzKHBze4Auh7kRDg7p+s9YoUoN1WRqb4978PyG/R4s83wxydGo0omR5t5cgN+DqVkmmFM4nLugBqYG51+wgTovXMD78yUl71VdyFg8QU9w+tj6xZfaJ1iPHAkv6Bj/B3/5R5tJh3+zxC7a4VFfZ6mjDrouKtG6S81plfo/u/f+LEuCogrI98BWxHpjigpf0IpxYRpFbFwjnDb9bn8THsy+fB49A==";
-    
-    // 直接跳转到微信支付
-    window.location.href = payUrl;
-}
+    <script>
+      function openWeChatPay() {
+        const payUrl =
+          'weixin://wap/pay?prepayid=wx161037284548140abc0c89143b50b20000&package=Sign%3DWXPay&noncestr=1752633449510×tamp=1752633449&sign=gN84mxMGXaSlN/NTHE+QZh/ph7wB9nEgBBl2HaDWoEoeYgPXMSWyU8TxP965GgN8iJ6VQahCsuD07WXUaNWW1m7lY3Ulaunv7/DqSrgC2ub/JjDEKNHuDYzb78fMzKHBze4Auh7kRDg7p+s9YoUoN1WRqb4978PyG/R4s83wxydGo0omR5t5cgN+DqVkmmFM4nLugBqYG51+wgTovXMD78yUl71VdyFg8QU9w+tj6xZfaJ1iPHAkv6Bj/B3/5R5tJh3+zxC7a4VFfZ6mjDrouKtG6S81plfo/u/f+LEuCogrI98BWxHpjigpf0IpxYRpFbFwjnDb9bn8THsy+fB49A=='
 
-// 检查是否在微信浏览器中
-function isWeChatBrowser() {
-    const ua = navigator.userAgent.toLowerCase();
-    return ua.indexOf('micromessenger') !== -1;
-}
+        // 直接跳转到微信支付
+        window.location.href = payUrl
+      }
 
-// 页面加载完成后的初始化
-window.onload = function() {
-    // 不自动跳转，等待用户点击按钮
-    console.log('页面已加载，等待用户点击支付按钮');
-};
-</script>
+      function openWeChatPayH5() {
+        const payUrl =
+          'https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx20161110163838f231619da20804912345&package=1037687096&redirect_url=https%3A%2F%2Fwww.wechatpay.com.cn'
+        window.location.href = payUrl
+      }
+
+      function openWeChatPayZFB() {
+        const orderStr = 'alipay_sdk=fsdafasf' // 后端返回的支付参数字符串
+        const encodedPayUrl = encodeURIComponent(orderStr)
+        const payUrl = `alipay://platformapi/startapp?appId=20000067&url=${encodedPayUrl}`
+        window.location.href = payUrl
+      }
+
+      // 页面加载完成后的初始化
+      window.onload = function () {
+        // 不自动跳转，等待用户点击按钮
+        console.log('页面已加载，等待用户点击支付按钮')
+      }
+    </script>
+  </body>
 </html>
